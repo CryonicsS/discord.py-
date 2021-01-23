@@ -4,12 +4,12 @@ from discord.ext import commands
 from discord import User
 from discord.ext.commands import Bot, guild_only
 
-TOKEN = "Nzk5MzA4OTIwMTE5ODg1ODU0.YABscA.rXXrWBFWckHyeQYF8gbmIHAAD04"
+TOKEN = "YOUR TOKEN"
 
 client = commands.Bot(command_prefix='.')
 
 
-# bot çalıştığında / #bot status
+# bot start / #bot status
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.idle, activity=discord.Game("YAPIM AŞAMASINDA!"))
@@ -100,7 +100,7 @@ async def chnick(ctx, member: discord.Member, nick):
     await ctx.send(f'Nickname was changed for {member.mention} ')
 
 
-# ROL VERMEK
+# add roles
 @client.command(pass_context=True)
 @commands.has_permissions(manage_roles=True)
 async def addrole(ctx, user: discord.Member, role: discord.Role):
@@ -108,21 +108,13 @@ async def addrole(ctx, user: discord.Member, role: discord.Role):
     await ctx.send(f"{ctx.author.name} , {user.name} isimli üyeye bir rol verdi: {role.name}")
 
 
-# rol oluşturmak
+# create role
 @client.command(aliases=['make_role'])
 @commands.has_permissions(manage_roles=True)
 async def create_role(ctx, *, name):
     guild = ctx.guild
     await guild.create_role(name=name)
     await ctx.send(f'`{name}` Rolü oluşturuldu')
-
-
-# burayı geliştir
-@client.command("invite")
-async def invite(prfx):
-    embed = discord.Embed(title="TIKLA VEYA KOPYALA", url="https://discord.gg/qUmrynGp9X",
-                          description="https://discord.gg/qUmrynGp9X")
-    await prfx.send(embed=embed)
 
 
 # Help
@@ -138,14 +130,6 @@ async def yardim(prfx):
     embed.add_field(name="🔞 NSWF Komutları:", value=".nswf", inline=False)
     embed.add_field(name="📧 İletişim Komutları:", value=".iletisim", inline=False)
     await prfx.send(embed=embed)
-
-
-@mute.error
-async def mute_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed()
-        embed.add_field(name="Mutelemek istediğiniz kişiyi etiketleyiniz.", value=".mute @EXAMPLE", inline=True)
-        await ctx.send(embed=embed)
 
 
 client.run(TOKEN)
