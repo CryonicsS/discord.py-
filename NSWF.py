@@ -14,11 +14,9 @@ client = commands.Bot(command_prefix=bot_prefix, help_command=None)
 
 @client.command()
 async def nswf(ctx):
-	x = datetime.datetime.now()
 	sayi = random.randint(100,900)
 	embed=discord.Embed(color=0xff0000)
 	embed.set_image(url="http://porngif.it/gif/ze%20predu/0" + str(sayi) + ".gif")
-	embed.set_footer(text=(x.strftime("%X")))
 	await ctx.send(embed=embed)
     
     
